@@ -25,8 +25,6 @@ data = pd.read_csv(csv_link)
 
 app.layout = html.Div([
     html.H4('Implement from here'),
-    html.Button("Switch Axis", n_clicks=0,
-                id='button'),
 ])
 
 
