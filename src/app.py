@@ -11,6 +11,12 @@ app = Dash(__name__, title="dd1")
 
 # Declare server for Heroku deployment. Needed for Procfile.
 server = app.server
+# Source our data using the actual link to your CSV file
+csv_link = 'https://raw.githubusercontent.com/Donald-Mutai/Files/main/wfp_food_prices_ken.csv'
+
+# Read the CSV file into a Pandas DataFrame
+df = pd.read_csv(csv_link)
+data = pd.read_csv(csv_link)
 
 def load_data(data_file: str) -> pd.DataFrame:
     '''
