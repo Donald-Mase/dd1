@@ -52,6 +52,87 @@ stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
 app = Dash(__name__, title="dd1")
 # Declare server for Heroku deployment. Needed for Procfile.
 server = app.server
+df = pd.read_excel('wfp.xlsx', engine='openpyxl', parse_dates=["date"], index_col="date")
+# df["date"] = pd.to_datetime(df["date"])
+data = pd.read_excel('wfp.xlsx', engine='openpyxl')
+datax = pd.read_excel('wfp.xlsx', engine='openpyxl')
+
+data = pd.DataFrame(data)
+data = data.drop([0])
+
+datax = pd.DataFrame(datax)
+datax = datax.drop([0])
+
+series = df['admin1'].value_counts()
+series2 = df['admin2'].value_counts()
+series3 = df['market'].value_counts()
+series4 = df['commodity'].value_counts()
+
+df_result = pd.DataFrame(series)
+df_result2 = pd.DataFrame(series2)
+df_result3 = pd.DataFrame(series3)
+df_result4 = pd.DataFrame(series4)
+
+df_result = df_result.reset_index()
+df_result2 = df_result2.reset_index()
+df_result3 = df_result3.reset_index()
+df_result4 = df_result4.reset_index()
+
+df_result.columns = ['admin1', 'Total']
+df_result2.columns = ['admin2', 'Total']
+df_result3.columns = ['market', 'Total']
+df_result4.columns = ['commodity', 'Total']
+
+
+selected = ['date', 'commodity', 'category', 'market', 'unit', 'pricetype', 'price']
+selected_df = data[selected]
+dash_table = dash_table.DataTable(df.to_dict('records'),
+                                  [{"name": i, "id": i} for i in selected_df.tail(15).columns], page_size=15)
+
+# Pie Chart
+
+fig1 = px.pie(df_result,
+              values='Total',
+              names='admin1',
+              labels='admin1',
+              title='Pie Chart for Market Proportions Based on Adminstrative Region1 ')
+
+fig12 = go.Figure(
+    data=[go.Bar(x=df_result4['commodity'], y=df_result4['Total'], text=df_result4['commodity'], orientation='v')])
+
+# Donut Chart
+# Create a figure with a donut chart
+fig2 = go.Figure(data=[go.Pie(values=df_result2['Total'], labels=df_result2['admin2'], hole=0.5)])
+
+# Add a title and labels
+fig2.update_layout(title='Administrative Region 2 Data Proportions ', xaxis_title='x', yaxis_title='y', height=600)
+
+# Create a figure with a bar chart
+fig3 = go.Figure(
+    data=[go.Bar(x=df_result3['market'], y=df_result3['Total'], text=df_result3['market'], orientation='v')])
+
+# Add a title and labels
+fig3.update_layout(title='Bar Chart on Major Market Proportions Data', xaxis_title='', yaxis_title='Total', height=800)
+
+data['date'] = pd.to_datetime(data['date'])
+datax['date'] = pd.to_datetime(datax['date'])
+
+data = data.query("unit == 'KG'")
+# maize
+data = data.query("commodity == 'Maize'")
+
+# -forecast
+data = data.query("priceflag == 'actual'")
+
+# Linechart
+
+fig = px.line(data, x="date", y="price", color="market", hover_name="market", title="Maize Price Series", height=300)
+
+data = data.query("market == 'Nairobi'")
+
+fig14 = px.area(data, x="date", y="price", color="market", hover_name="market", title="Nairobi Maize Price Series")
+fig15 = px.scatter(data, x="date", y="price", color="market", hover_name="market", title="Nairobi Maize Price Series",
+                   trendline="ols", trendline_scope="overall")
 
 
 app.layout = html.Div([
