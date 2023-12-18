@@ -21,7 +21,7 @@ def load_data(data_file: str) -> pd.DataFrame:
     return pd.read_csv(DATA_PATH.joinpath(data_file))
 
 app.layout = html.Div([
-    html.H4('Simple stock plot with adjustable axis'),
+    html.H4('Implement from here'),
     html.Button("Switch Axis", n_clicks=0,
                 id='button'),
     dcc.Graph(id="graph"),
