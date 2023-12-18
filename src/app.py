@@ -6,6 +6,8 @@ import pathlib
 from dash import Dash, dcc, html, Input, Output
 import plotly.express as px
 import pandas as pd
+import folium
+from folium import plugins
 
 app = Dash(__name__, title="dd1")
 
