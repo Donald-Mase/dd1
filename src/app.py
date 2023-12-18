@@ -11,6 +11,8 @@ from folium import plugins
 import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
 import openpyxl
+import statsmodels.api as sm
+
 # Source our data using the actual link to your CSV file
 csv_link = 'https://raw.githubusercontent.com/Donald-Mutai/Files/main/wfp_food_prices_ken.csv'
 
