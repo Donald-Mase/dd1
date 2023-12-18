@@ -34,8 +34,8 @@ df = df.drop(0)
 Map Visual
 """
 
-mymap = folium.Map([-1.287905, 36.792712], id="folium-map", tiles="cartodbpositron", zoom_start=8, width="%100",
-                   height="%100")
+mymap = folium.Map([-1.287905, 36.792712], id="folium-map", tiles="cartodbpositron", zoom_start=8, width="100%",
+                   height="100%")
 locations = list(zip(df.latitude, df.longitude))
 
 # Create a MarkerCluster object
