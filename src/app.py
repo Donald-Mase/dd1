@@ -32,7 +32,6 @@ app.layout = html.Div([
     html.H4('Implement from here'),
     html.Button("Switch Axis", n_clicks=0,
                 id='button'),
-    dcc.Graph(id="graph"),
 ])
 
 @app.callback(
