@@ -355,10 +355,81 @@ app.layout = dbc.Container(
                 ),
             )
         ),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        dbc.CardBody(averagepricecard),
+                    ],
+                    width=4,
+                ),
+                dbc.Col(
+                    [
+                        dbc.CardHeader("Market Chart"),
+                        # dcc.Graph(id="fig14", figure=fig14, className="mb-2"),
+                        dcc.Graph(id='area-chart')
+                    ],
+                    width=8,
+                ),
+            ]),
+        dbc.Row(
+            [
+                dbc.Col(tabs, width=8, lg=5, className="mt-4 border"),
+                dbc.Col(
+                    [
+                        html.Div([dcc.Markdown('Latest Prices'), dash_table]),
+                        dcc.Graph(id="fig3", figure=fig3, className="mb-2"),
+                    ],
+                    width=12,
+                    lg=7,
+                ),
+            ],
+            className="ms-1",
+        ),
         dbc.Row(dbc.Col(footer)),
     ],
     fluid=True,
 )
+# Callbacks ***************************************************************
+
+# callback function to update price statistics
+@app.callback(
+    Output('average-price', 'children'),
+    [Input('market-dropdown', 'value'), Input('commodity-dropdown', 'value')]
+)
+def update_average_price(selected_market, selected_commodity):
+    filtered_df = df[(df['market'] == selected_market) & (df['commodity'] == selected_commodity)]
+
+    # maximum, minimum and average values
+    maximum_price = filtered_df['price'].max()
+    minimum_price = filtered_df.loc[filtered_df['price'] > 0, 'price'].min()
+    average_price = filtered_df['price'].mean()
+    return f"Average price for {selected_commodity} in {selected_market} is KES {average_price:.2f}." \
+           f"Best price for {selected_commodity} in {selected_market} is KES {maximum_price:.2f}." \
+           f"Lowest registered price for {selected_commodity} in {selected_market} is KES {minimum_price:.2f}"
+
+
+@app.callback(
+
+    Output('area-chart', 'figure'),
+    [Input('market-dropdown', 'value'), Input('commodity-dropdown', 'value')]
+)
+def update_area_chart(selectedmarket, selectedcommodity):
+    filtereddf = datax[(datax['market'] == selectedmarket) & (datax['commodity'] == selectedcommodity)]
+    filtereddf['date'] = pd.to_datetime(filtereddf['date'])
+    # area chart
+    fig = px.area(filtereddf, x="date", y="price", color="market", hover_name="market",
+                  title=f'Price Trend for {selectedcommodity} in {selectedmarket}')
+    return fig
+
+
+def update_piechart():
+    pass
+
+
+def update_donutchart():
+    pass
+
 
 if __name__ == "__main__":
     app.run_server(debug=True)
