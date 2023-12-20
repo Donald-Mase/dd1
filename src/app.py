@@ -339,12 +339,26 @@ averagepricecard = dbc.Card(
     style={'margin-bottom': '20px'},
     className="mt-4",
 )
+"""=====================================================
+Main Layout
+======================
+"""
 
-
-app.layout = html.Div([
-    html.H4('Implement from here.'),
-])
-
+app.layout = dbc.Container(
+    [
+        dbc.Row(dbc.Col(navbar)),
+        dbc.Row(
+            dbc.Col(
+                html.H2(
+                    "Kenya Food Market Report App by Attain",
+                    className="text-center bg-primary text-white p-2",
+                ),
+            )
+        ),
+        dbc.Row(dbc.Col(footer)),
+    ],
+    fluid=True,
+)
 
 if __name__ == "__main__":
     app.run_server(debug=True)
