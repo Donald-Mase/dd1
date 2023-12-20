@@ -350,7 +350,7 @@ app.layout = dbc.Container(
         dbc.Row(
             dbc.Col(
                 html.H2(
-                    "Kenya Food Market Report App by Attain",
+                    "Kenya Food Market Concept App by Attain",
                     className="text-center bg-primary text-white p-2",
                 ),
             )
