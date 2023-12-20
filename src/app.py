@@ -236,11 +236,113 @@ footer = html.Div(
     ),
     className="p-2 mt-5 bg-primary text-white small",
 )
+Introduction_card = dbc.Card(
+    [
+        dbc.CardHeader("Report Analysis on Kenyan Food Market"),
+        dbc.CardBody(Introduction_text),
+    ],
+    className="mt-4",
+)
 
+Visual_Report_card = dbc.Card(
+    [
+        dbc.CardHeader("Visual Analysis of the Report"),
+        dbc.CardBody(Visual_Report_text),
+        dcc.Graph(id="fig1", figure=fig1, className="mb-2"),
+        dbc.CardBody(Visual_Report_text_b),
+        dcc.Graph(id="fig2", figure=fig2, className="mb-2"),
+        dbc.CardBody(Visual_Report_text_b),
+        dcc.Graph(id="fig12", figure=fig12, className="mb-2"),
+    ],
+    className="mt-4",
+)
+geo_card = dbc.Card(
+    [
+        dbc.CardHeader("GeoVisual"),
+        html.Iframe(width="100%", height="600", srcDoc=mymap._repr_html_()),
+    ],
+    className="mt-4",
+)
+timeseries_card = dbc.Card(
+    [
+        dbc.CardHeader("Analysis"),
+        dbc.CardBody(Timeseries_text),
+        # dcc.Graph(id="fig14", figure=fig14, className="mb-2"),
+        dbc.CardBody(analysis_text),
+        dcc.Graph(id="fig15", figure=fig15, className="mb-2"),
+        dbc.CardBody(analysis_text),
+    ],
+    className="mt-4",
+)
+
+tabs = dbc.Tabs(
+    [
+        dbc.Tab(Introduction_card, tab_id="tab-1", label="Overview"),
+        dbc.Tab(geo_card, tab_id="tab-2", label="GeoData"),
+        dbc.Tab(Visual_Report_card, tab_id="tab-3", label="Visual Analysis"),
+        dbc.Tab(
+            [timeseries_card,
+             dcc.Graph(id="fig", figure=fig, className="mb-2"),
+             dbc.CardBody(analysis2_text),
+             ],
+            tab_id="tab-4",
+            label="Timeseries Analysis",
+            className="pb-4",
+        ),
+    ],
+    id="tabs",
+    active_tab="tab-2",
+    className="mt-2",
+)
+
+navbar = dbc.NavbarSimple(
+    brand='Attain Solutions Ltd',
+    brand_style={'fontSize': 40, 'color': 'white'},
+    children=html.A('Data Source',
+                    href='https://data.humdata.org/dataset/wfp-food-prices-for-kenya?force_layout=desktop',
+                    target='_blank',
+                    style={'textAlign': 'center', 'color': 'black'}),
+    color='primary',
+    fluid=True,
+    sticky='top'
+)
+
+# selecting unique value in markets
+marketdropdown = dcc.Dropdown(
+    id='market-dropdown',
+    options=[{'label': val, 'value': val} for val in df['market'].unique()],
+    value=df['market'].unique()[0],
+    style={'width': '50%', 'margin-bottom': '20px','color': 'black'},
+    multi=False,
+)
+# selecting unique value in commodities
+commoditydropdown = dcc.Dropdown(
+    id='commodity-dropdown',
+    options=[{'label': val, 'value': val} for val in df['commodity'].unique()],
+    value=df['commodity'].unique()[0],
+    style={'width': '50%', 'margin-bottom': '20px', 'color': 'black'},
+    multi=False,
+)
+averagepricecard = dbc.Card(
+    [
+        dbc.CardHeader("Price Statistics"),
+        dbc.CardBody([
+            html.H4("Market Statistics", className="card-title"),
+            commoditydropdown,
+            marketdropdown,
+            html.P(id="average-price", className="card-text")
+        ]),
+
+    ],
+    color="primary",
+    inverse=True,
+    style={'margin-bottom': '20px'},
+    className="mt-4",
+)
 
 
 app.layout = html.Div([
-    html.H4('Implement from here'),
+    html.H4('Implement from here.'),
 ])
 
 
