@@ -135,6 +135,108 @@ data = data.query("market == 'Nairobi'")
 fig14 = px.area(data, x="date", y="price", color="market", hover_name="market", title="Nairobi Maize Price Series")
 fig15 = px.scatter(data, x="date", y="price", color="market", hover_name="market", title="Nairobi Maize Price Series",
                    trendline="ols", trendline_scope="overall")
+"""
+==========================================================================
+Markdown Text
+"""
+
+datasource_text = dcc.Markdown(
+    """
+    [Data source:](https://data.humdata.org/dataset/wfp-food-prices-for-kenya?force_layout=desktop)
+    Kenya - Food PricesThis dataset contains Food Prices data for Kenya, sourced from the World Food Programme Price Database.
+    The World Food Programme Price Database covers foods such as maize, rice, beans, fish, and sugar for 98 countries and some 3000 markets.
+    It is updated weekly but contains to a large extent monthly data.
+     The data goes back as far as 1992 for a few countries, although many countries started reporting from 2003 or thereafter.
+    """
+)
+
+Introduction_text = dcc.Markdown(
+    """
+    The dashboard provides an overview of price trends across multiple regions in Kenya, enabling us to analyze price movements over time and identify contrasts in price changes across various markets.
+    By examining the data, we can gain valuable insights into the performance of different commodities and make informed decisions based on the latest market trends.
+
+    Objectives
+
+    ⦁	 Get a visual on the distribution of commodities in different areas.
+
+    ⦁	Interact with the trends in prices for commodities across different markets.
+
+    ⦁	Study the changes in market prices.
+
+    ⦁	Understand the dynamics of price movements relative to time.  
+
+    """
+)
+
+Visual_Report_text = dcc.Markdown(
+    """
+    For our dataset, the first administrative region has the highest collective representation and supersedes all other regions in terms of geographic distribution of food. 
+    The rift valley accounts for the largest share of the market data, with approximately 38% of the total. 
+    This suggests that the region is a significant producer of food and has a substantial impact on the subsequent administrative tiers and local markets within the region.
+    """
+)
+Visual_Report_text_b = dcc.Markdown(
+    """
+    The second administrative tier displays a higher level of refinement in its geographic representation, with smaller regions within the tier. 
+    Nairobi takes the lead with a significant representation of approximately 28%, according to our data. 
+    A unique perspective could suggest that the Rift Valley region from the first administrative tier has a higher aggregate representation in the second administrative region. 
+    Nairobi is followed closely by Turkana, Garissa, and Mombasa with notable data output.
+    """
+)
+
+Timeseries_text = dcc.Markdown(
+    """
+> In this section, our main goal is to study the price trends of commodities, focusing on Maize in Kenya.
+  Maize is essential in agriculture and widely consumed in households. The study aims to uncover patterns in prices over the past few years and understand if there are predictable changes.
+  Given Maize's importance as a staple food, understanding what influences its prices is crucial.
+
+> We're not only looking at one market but exploring different regions, comparing pricing behaviors.
+ Through careful time series analysis, our goal is to provide detailed insights into the Maize market, enhancing our understanding of its trends and regional differences.
+"""
+)
+Timeseries2_text = dcc.Markdown(
+    """
+>  Based on our case study, it appears that Nairobi dominates the market share of commodities for our dataset, followed by Eldoret. 
+ The significant proportion of commodities traded in Nairobi suggests that it is an ideal destination for marketing solutions, which can be attributed to its large population and well-developed network infrastructure that connects buyers and sellers.
+
+"""
+)
+
+analysis_text = dcc.Markdown(
+    """
+    Using the visual analysis,it appears that Nairobi is the dominant region for market activity and administration, and maize is the dominant crop with a significant proportion of the market share. 
+    Additionally, there is a positive relationship between price changes and time for maize in Nairobi, with some outliers detected in 2017 that may indicate an abnormal increase in price followed by a slump. 
+    Further confirmation is needed to fully understand these price fluctuations.
+
+    """
+)
+analysis2_text = dcc.Markdown(
+    """
+    From the time series graph, it appears that the prices of maize in the 5 major markets in Kenya have been relatively similar in terms of changes  over the period from 2006 to 2023. 
+    However, there are some noticeable differences between the lowest and highest performing markets. 
+    Specifically, Nakuru consistently had the lowest prices for a kilo of maize, while prices in Kisumu were significantly higher.
+
+    """
+)
+
+forecast_text = dcc.Markdown(
+    """
+    forecast stuff
+    """
+)
+
+footer = html.Div(
+    dcc.Markdown(
+        """
+         This information is intended solely as general information for educational
+        and entertainment purposes only and is not a substitute for professional advice and
+        services from qualified financial services providers familiar with your financial
+        situation.
+        """
+    ),
+    className="p-2 mt-5 bg-primary text-white small",
+)
+
 
 
 app.layout = html.Div([
