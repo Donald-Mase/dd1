@@ -355,6 +355,23 @@ app.layout = dbc.Container(
                 ),
             )
         ),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        dbc.CardBody(averagepricecard),
+                    ],
+                    width=4,
+                ),
+                dbc.Col(
+                    [
+                        dbc.CardHeader("Market Chart"),
+                        # dcc.Graph(id="fig14", figure=fig14, className="mb-2"),
+                        dcc.Graph(id='area-chart')
+                    ],
+                    width=8,
+                ),
+            ]),     
         dbc.Row(dbc.Col(footer)),
     ],
     fluid=True,
